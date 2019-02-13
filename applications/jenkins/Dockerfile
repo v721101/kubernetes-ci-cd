@@ -1,6 +1,9 @@
 FROM jenkins/jenkins:2.136
 USER root
-
+ENV http_proxy=http://proxy.ebiz.verizon.com:80
+ENV https_proxy=http://proxy.ebiz.verizon.com:80
+ENV no_proxy=10.118.6.35,10.96.0.1,169.254.169.254,*.verizon.com,localhost,*.vzbi.com
+ENV JENKINS_OPTS --prefix=/jenkins
 #Pre-Install Jenkins Plugins
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
@@ -20,4 +23,4 @@ apt-get update && apt-get install -y kubectl
 # Grant jenkins user group access to /var/run/docker.sock
 RUN addgroup --gid 1001 dsock
 RUN gpasswd -a jenkins dsock 
-USER jenkins
+USER root

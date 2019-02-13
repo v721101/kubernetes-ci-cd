@@ -8,11 +8,16 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+      protocol: TCP
+      name: http
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
   selector:
     app: hello-kenzan
     tier: hello-kenzan
-  type: NodePort
-
+  type: NodePort  
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -30,7 +35,7 @@ spec:
         tier: hello-kenzan
     spec:
       containers:
-      - image: 127.0.0.1:30400/hello-kenzan:latest
+      - image: gopikrish81/hello-kenzan:latest
         name: hello-kenzan
         ports:
         - containerPort: 80
