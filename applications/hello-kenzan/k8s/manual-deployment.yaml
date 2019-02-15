@@ -35,7 +35,7 @@ spec:
         tier: hello-kenzan
     spec:
       containers:
-      - image: gopikrish81/hello-kenzan:latest
+      - image: gopikrish81/hello-kenzan:${tag}
         name: hello-kenzan
         ports:
         - containerPort: 80
