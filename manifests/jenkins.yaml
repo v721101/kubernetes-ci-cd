@@ -59,9 +59,9 @@ data:
   kubectl-config-context.sh: |-
     #!/bin/bash -v
 
-    kubectl config set-credentials jenkins --token=$(kubectl get secret default-token-mclrb -o jsonpath={.data.token} | base64 -d)
-    kubectl config set-cluster minikube --server="https://10.118.6.35:6443" --certificate-authority=$(kubectl get secret default-token-mclrb -o json | jq -r '.data["ca.crt"]' | base64 -d)
-    kubectl config set-context jenkins-minikube --cluster=minikube --user=jenkins --namespace=default
+    kubectl config set-credentials jenkins --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+    kubectl config set-cluster minikube --server="https://10.118.6.35:6443" --certificate-authority="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+    kubectl config set-context jenkins-minikube --cluster=minikube --user=jenkins --namespace=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
     kubectl config use-context jenkins-minikube
     chmod 755 ~/.kube/config
 
