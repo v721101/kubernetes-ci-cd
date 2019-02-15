@@ -12,7 +12,6 @@ spec:
     app: hello-kenzan
     tier: hello-kenzan
   type: NodePort
-
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
